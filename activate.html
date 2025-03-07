@@ -1,0 +1,65 @@
+{% load  static%}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Voidmain</title>
+<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+					<h3>
+                        <center><a href="#"><font color="white" size="5">Automated Student Realtime Attendance System Using Facerecognition</font></a></center>
+					</h3>
+					<br/><br/>
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+				
+					<li><a href="/registration">Registration</a></li>
+                    <li><a href="/activate">Activate</a></li>
+                    <li><a href="/login?usertype=admin">Admin</a></li>
+                    <li><a href="/login?usertype=faculty">Faculty</a></li>
+                    <li><a href="/login?usertype=student">Student</a></li>
+					<li><a href="/attendancein">Morning Attendance</a></li>
+                    <li><a href="/attendanceout">Evening Attendance</a></li>
+
+				</ul>
+			</div>
+		</div>
+		<div id="content_header"></div>
+		<div id="site_content">
+			<div id="content">
+				
+				<h1>Activation Status : {{message}}</h1>
+
+				<form name="form" action="/activateaction/">
+					{% csrf_token %}
+					<div class="form_settings">
+						
+						<p>
+							<span>User Name :</span><input class="contact" type="text"
+								name="username" value="" />
+						</p>
+						<p>
+							<span>Enter OTP:</span><input class="contact" type="text"
+								name="otp" value="" />
+						</p>
+						<p style="padding-top: 15px">
+							<span>&nbsp;</span><input class="submit" type="submit"
+								name="contact_submitted" value="Activate" />
+						</p>
+					</div>
+				</form>
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>

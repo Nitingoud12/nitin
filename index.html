@@ -1,0 +1,46 @@
+{% load  static%}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Voidmain</title>
+<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+					<h3>
+						<center><a href="#"><font color="white" size="5">Automated Student Realtime Attendance System Using Facerecognition</font></a></center>
+					</h3>
+					<br/><br/>
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+
+					<li><a href="/registration">Registration</a></li>
+                    <li><a href="/activate">Activate</a></li>
+                    <li><a href="/login?usertype=admin">Admin</a></li>
+                    <li><a href="/login?usertype=faculty">Faculty</a></li>
+                    <li><a href="/login?usertype=student">Student</a></li>
+					<li><a href="/attendancein">Morning Attendance</a></li>
+                    <li><a href="/attendanceout">Evening Attendance</a></li>
+
+				</ul>
+			</div>
+		</div>
+		<div id="content_header"></div>
+		<div id="site_content">
+			<div id="content">
+				
+				<font color="red" size="5">{{message}}</font>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

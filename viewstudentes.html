@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voidmain</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}" title="style" />
+
+    <style>
+        /* Table Styling */
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td,
+        #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Header and Menu Styles */
+        #logo_text h3 {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        #menubar {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        #menu {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        #menu li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        #menu a:hover {
+            color: #4CAF50;
+        }
+
+        /* Main Content and Layout */
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        #main {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        #header {
+            background-color: #333;
+            padding: 20px;
+        }
+
+        #content {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        h3 {
+            color: #4CAF50;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            #menu li {
+                display: block;
+                margin: 10px 0;
+            }
+
+            #logo_text h3 {
+                font-size: 18px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <div id="logo_text">
+                    <h3>
+                        <a href="#">Automated Student Real-time Attendance System Using Face Recognition</a>
+                    </h3>
+                    <br />
+                </div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <li><a href="/getstudents">View Students</a></li>
+                    <li><a href="/viewattendance">Attendance</a></li>
+                    <li><a href="/sendemail">Send Emails</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="content_header"></div>
+
+        <div id="site_content">
+            <div id="content">
+                <h1>Welcome, <strong>{{ request.session.username }}</strong></h1>
+                <h3>{{ message }}</h3>
+
+                <!-- Students Table -->
+                <table id="customers">
+                    <thead>
+                        <tr>
+                            <th>Roll Number</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Department</th>
+                            <th>Year</th>
+                            <th>Section</th>
+                            <th>Status</th>
+                            <th>Update Status</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in students %}
+                        <tr>
+                            <td>{{ user.rno }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.mobile }}</td>
+                            <td>{{ user.branch }}</td>
+                            <td>{{ user.year }}</td>
+                            <td>{{ user.section }}</td>
+                            <td>{{ user.status }}</td>
+                            {% if user.status == "no" %}
+                            <td><a href="/activatestudent?username={{ user.id }}&status=yes">activate</a></td>
+                            {% endif %}
+                            {% if user.status == "yes" %}
+                            <td><a href="/activatestudent?username={{ user.id }}&status=no">deactivate</a></td>
+                            {% endif %}
+                            <td><a href="/deletestudent?studentid={{ user.id }}">delete</a></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="10">No students available</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
